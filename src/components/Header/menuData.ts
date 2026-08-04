@@ -14,12 +14,6 @@ const menuData: Menu[] = [
     path: "/about",
   },
   {
-    id: 4,
-    title: "Blog",
-    newTab: false,
-    path: "/blog",
-  },
-  {
     id: 3,
     title: "Docs",
     newTab: false,
@@ -43,22 +37,10 @@ const menuData: Menu[] = [
         path: "/pricing",
       },
       {
-        id: 31,
-        title: "Blog Grid",
-        newTab: false,
-        path: "/blog",
-      },
-      {
         id: 34,
         title: "Sign In",
         newTab: false,
         path: "/auth/signin",
-      },
-      {
-        id: 35,
-        title: "Sign Up",
-        newTab: false,
-        path: "/auth/signup",
       },
       {
         id: 35,

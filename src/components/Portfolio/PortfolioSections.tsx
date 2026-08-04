@@ -27,11 +27,12 @@ export default function PortfolioSections() {
         <div className="mx-auto grid max-w-7xl gap-14 px-6 py-28 md:px-10 lg:grid-cols-[0.8fr_1.2fr] lg:px-16">
           <div>
             <p className="section-kicker">Selected impact</p>
-            <h2 className="section-heading">Analysis that moved missions forward.</h2>
+            <h2 className="section-heading">Leadership that moved missions forward.</h2>
           </div>
           <div className="space-y-12">
-            <Experience role="Military Intelligence Analyst / Mission Manager" org="United States Army" text="Collected, analyzed, sanitized, and disseminated 1,200+ intelligence products supporting joint operations and contributing to the capture or neutralization of 375+ high-value targets." />
+            <Experience role="Military Intelligence Analyst" org="United States Army" text="Collected, analyzed, sanitized, and disseminated 1,200+ intelligence products supporting joint operations and contributing to the capture or neutralization of 375+ high-value targets." />
             <Experience role="APG Mission Manager" org="United States Army" text="Tracked operational activity across CENTCOM and SOUTHCOM, applying intelligence fusion, predictive analysis, pattern analysis, and threat assessment to commander decision-making." />
+            <Experience role="Operations Manager" org="United States Army" text="Directed company-level operations for 210 personnel, coordinating training schedules, task orders, and pre-deployment readiness while overseeing compliance programs for driver qualification, safety, and recurring annual requirements. Maintained organizational accountability and ensured personnel remained trained, compliant, and mission-ready." />
             <Experience role="Recruiter / Operations Specialist" org="United States Army" text="Built strategic community partnerships and used operational metrics and trend analysis to exceed an individual recruiting mission by 20% in a historically challenging environment." />
           </div>
         </div>

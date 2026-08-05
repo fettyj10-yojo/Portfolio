@@ -1,11 +1,37 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import SplineBackground from "./SplineBackground";
 
 export default function HeroSection() {
+  const splineContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const container = splineContainerRef.current;
+    if (!container) return;
+
+    const forwardWheelToPage = (event: WheelEvent) => {
+      if (event.ctrlKey) return;
+
+      event.preventDefault();
+      event.stopPropagation();
+
+      const multiplier = event.deltaMode === WheelEvent.DOM_DELTA_LINE
+        ? 16
+        : event.deltaMode === WheelEvent.DOM_DELTA_PAGE
+          ? window.innerHeight
+          : 1;
+
+      window.scrollBy({ top: event.deltaY * multiplier, behavior: "auto" });
+    };
+
+    container.addEventListener("wheel", forwardWheelToPage, { capture: true, passive: false });
+    return () => container.removeEventListener("wheel", forwardWheelToPage, { capture: true });
+  }, []);
+
   return (
     <section id="top" className="relative flex min-h-screen items-end overflow-hidden bg-hero-bg">
-      <div className="absolute inset-0">
+      <div ref={splineContainerRef} className="absolute inset-0">
         <SplineBackground />
       </div>
       <div className="pointer-events-none absolute inset-0 z-1 bg-black/30" />

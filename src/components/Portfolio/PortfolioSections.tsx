@@ -73,12 +73,12 @@ export default function PortfolioSections() {
               src="/badges/javascript-professional-developer.png"
               alt="COITB Professional JavaScript Developer badge"
               title="JavaScript"
-              crop
             />
             <BadgeCard
               src="/badges/html-css-web-designer.png"
               alt="COITB HTML CSS Web Designer badge"
               title="HTML & CSS"
+              imageClassName="-translate-y-[17.5px]"
             />
           </div>
         </div>
@@ -137,7 +137,7 @@ function Experience({ role, org, text }: { role: string; org: string; text: stri
   );
 }
 
-function BadgeCard({ src, alt, title, crop = false }: { src: string; alt: string; title: string; crop?: boolean }) {
+function BadgeCard({ src, alt, title, imageClassName = "" }: { src: string; alt: string; title: string; imageClassName?: string }) {
   return (
     <article className="group relative overflow-hidden rounded-xl border border-primary/15 bg-hero-bg p-6 shadow-[0_20px_60px_rgba(0,0,0,0.3)] sm:p-8">
       <div className="pointer-events-none absolute inset-0 bg-radial-[at_50%_35%] from-primary/10 via-transparent to-transparent" />
@@ -146,7 +146,7 @@ function BadgeCard({ src, alt, title, crop = false }: { src: string; alt: string
           src={src}
           alt={alt}
           loading="lazy"
-          className={`max-h-full max-w-full object-contain transition-transform duration-500 group-hover:scale-[1.035] ${crop ? "[clip-path:polygon(21%_4%,79%_4%,100%_40%,100%_60%,79%_96%,21%_96%,0_60%,0_40%)]" : ""}`}
+          className={`max-h-full max-w-full object-contain transition-transform duration-500 group-hover:scale-[1.035] ${imageClassName}`}
         />
       </div>
       <div className="relative mt-5 flex items-center justify-between border-t border-border/70 pt-4">

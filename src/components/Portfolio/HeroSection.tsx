@@ -1,19 +1,12 @@
 "use client";
 
-import { lazy, Suspense } from "react";
-
-const Spline = lazy(() => import("@splinetool/react-spline"));
+import SplineBackground from "./SplineBackground";
 
 export default function HeroSection() {
   return (
     <section id="top" className="relative flex min-h-screen items-end overflow-hidden bg-hero-bg">
       <div className="absolute inset-0">
-        <Suspense fallback={<div className="absolute inset-0 bg-hero-bg" />}>
-          <Spline
-            scene="https://prod.spline.design/Slk6b8kz3LRlKiyk/scene.splinecode"
-            className="h-full w-full"
-          />
-        </Suspense>
+        <SplineBackground />
       </div>
       <div className="pointer-events-none absolute inset-0 z-1 bg-black/30" />
       <div className="pointer-events-none relative z-10 w-full max-w-[90%] px-6 pb-10 pt-32 sm:max-w-xl md:px-10 lg:max-w-3xl">
@@ -30,15 +23,15 @@ export default function HeroSection() {
           Industrial engineer and intelligence analyst applying React, SQL, data analysis, and AI-assisted workflows to high-stakes operational problems.
         </p>
         <div className="flex flex-wrap gap-3 opacity-0 animate-fade-up font-bold [animation-delay:0.7s]">
-          <a href="mailto:fettyj10@gmail.com" className="pointer-events-auto cursor-pointer rounded-sm bg-primary px-6 py-3 text-sm text-primary-foreground transition-all hover:brightness-110 active:scale-[0.97] md:px-8 md:py-4">
-            Start a conversation
+          <a href="/Jacob-Fetty-Resume.pdf" download="Jacob-Fetty-Resume.pdf" className="pointer-events-auto cursor-pointer rounded-sm bg-primary px-6 py-3 text-sm text-primary-foreground transition-all hover:brightness-110 active:scale-[0.97] md:px-8 md:py-4">
+            Download résumé
           </a>
           <a href="#experience" className="pointer-events-auto cursor-pointer rounded-sm bg-white px-6 py-3 text-sm text-background transition-all hover:brightness-90 active:scale-[0.97] md:px-8 md:py-4">
             View experience
           </a>
         </div>
         <p className="mt-4 opacity-0 animate-fade-up text-xs font-light text-muted-foreground/60 [animation-delay:0.85s] md:mt-6">
-          Greenville, NC · Active TS/SCI clearance · Open to software and data opportunities
+          Active TS/SCI clearance · Open to software and data opportunities
         </p>
       </div>
     </section>

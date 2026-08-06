@@ -8,6 +8,7 @@ const links = ["Expertise", "Experience", "Toolkit", "About", "Contact"];
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   useEffect(() => {
     const updateHeader = () => setIsScrolled(window.scrollY > 24);
@@ -39,6 +40,20 @@ export default function Navbar() {
           </Link>
         ))}
       </nav>
+      <button
+        type="button"
+        aria-expanded={isMobileOpen}
+        aria-controls="mobile-navigation"
+        aria-label={isMobileOpen ? "Close navigation" : "Open navigation"}
+        className="flex size-11 items-center justify-center border border-primary/25 bg-nav-button/70 text-primary md:hidden"
+        onClick={() => setIsMobileOpen((open) => !open)}
+      >
+        <span className="relative block h-4 w-5" aria-hidden="true">
+          <span className={`absolute left-0 top-0 h-px w-5 bg-current transition-transform ${isMobileOpen ? "translate-y-[7px] rotate-45" : ""}`} />
+          <span className={`absolute left-0 top-[7px] h-px w-5 bg-current transition-opacity ${isMobileOpen ? "opacity-0" : ""}`} />
+          <span className={`absolute bottom-0 left-0 h-px w-5 bg-current transition-transform ${isMobileOpen ? "-translate-y-[8px] -rotate-45" : ""}`} />
+        </span>
+      </button>
       <Button
         variant="navCta"
         size="lg"
@@ -47,6 +62,24 @@ export default function Navbar() {
       >
         View résumé
       </Button>
+      <nav
+        id="mobile-navigation"
+        aria-label="Mobile navigation"
+        className={`absolute inset-x-4 top-[calc(100%+0.5rem)] grid overflow-hidden rounded-xl border border-primary/20 bg-background/95 p-2 shadow-[0_18px_50px_rgba(0,0,0,0.45)] backdrop-blur-xl transition-all duration-300 md:hidden ${
+          isMobileOpen ? "visible translate-y-0 opacity-100" : "invisible -translate-y-2 opacity-0"
+        }`}
+      >
+        {links.map((link) => (
+          <Link
+            key={link}
+            href={`#${link.toLowerCase()}`}
+            className="rounded-lg px-4 py-3 text-sm uppercase tracking-[0.14em] text-muted-foreground transition-colors hover:bg-primary/8 hover:text-foreground"
+            onClick={() => setIsMobileOpen(false)}
+          >
+            {link}
+          </Link>
+        ))}
+      </nav>
     </header>
   );
 }

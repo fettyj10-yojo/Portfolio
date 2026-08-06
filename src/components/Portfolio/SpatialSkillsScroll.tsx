@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const coreSkills = [
   { label: "STRATEGIC VISION", x: 50, y: 50, start: 0.12, duration: 0.72, featured: true },
@@ -147,12 +147,23 @@ const additionalSkills = additionalBuzzwords.map((label, index) => {
 });
 
 const skills = [...coreSkills, ...additionalSkills];
+const mobileSkills = [...coreSkills, ...additionalSkills.slice(0, 32)];
 
 const clamp = (value: number) => Math.min(1, Math.max(0, value));
 
 export default function SpatialSkillsScroll() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<Array<HTMLSpanElement | null>>([]);
+  const [isMobile, setIsMobile] = useState(false);
+  const visibleSkills = isMobile ? mobileSkills : skills;
+
+  useEffect(() => {
+    const query = window.matchMedia("(max-width: 767px), (pointer: coarse)");
+    const update = () => setIsMobile(query.matches);
+    update();
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
+  }, []);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -160,6 +171,7 @@ export default function SpatialSkillsScroll() {
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     let frame = 0;
+    let isVisible = false;
 
     const render = () => {
       const rect = section.getBoundingClientRect();
@@ -168,7 +180,8 @@ export default function SpatialSkillsScroll() {
 
       itemRefs.current.forEach((item, index) => {
         if (!item) return;
-        const skill = skills[index];
+        const skill = visibleSkills[index];
+        if (!skill) return;
 
         if (reducedMotion.matches) {
           item.style.transform = "translate(-50%, -50%) translateZ(0)";
@@ -179,7 +192,9 @@ export default function SpatialSkillsScroll() {
 
         const localProgress = clamp((progress - skill.start) / skill.duration);
         const band = "band" in skill ? skill.band : "middle";
-        const [startDepth, endDepth] =
+        const [startDepth, endDepth] = isMobile
+          ? [-500, 420]
+          :
           band === "background"
             ? [-1500, 500]
             : band === "foreground"
@@ -188,7 +203,7 @@ export default function SpatialSkillsScroll() {
         const depth = startDepth + localProgress * (endDepth - startDepth);
         const opacityLimit = band === "background" ? 0.5 : band === "middle" ? 0.82 : 1;
         const visibility = Math.sin(localProgress * Math.PI) * opacityLimit;
-        const blur = Math.abs(localProgress - 0.5) * 10;
+        const blur = Math.abs(localProgress - 0.5) * (isMobile ? 4 : 10);
 
         item.style.transform = `translate(-50%, -50%) translateZ(${depth}px)`;
         item.style.opacity = String(Math.max(0, visibility));
@@ -197,11 +212,17 @@ export default function SpatialSkillsScroll() {
     };
 
     const requestRender = () => {
+      if (!isVisible) return;
       cancelAnimationFrame(frame);
       frame = requestAnimationFrame(render);
     };
 
-    render();
+    const visibilityObserver = new IntersectionObserver(([entry]) => {
+      isVisible = entry.isIntersecting;
+      if (isVisible) requestRender();
+    }, { rootMargin: "20% 0px" });
+    visibilityObserver.observe(section);
+
     window.addEventListener("scroll", requestRender, { passive: true });
     window.addEventListener("resize", requestRender);
     reducedMotion.addEventListener("change", requestRender);
@@ -211,14 +232,15 @@ export default function SpatialSkillsScroll() {
       window.removeEventListener("scroll", requestRender);
       window.removeEventListener("resize", requestRender);
       reducedMotion.removeEventListener("change", requestRender);
+      visibilityObserver.disconnect();
     };
-  }, []);
+  }, [visibleSkills]);
 
   return (
-    <div ref={sectionRef} className="spatial-scroll" aria-label={`Key skills: ${skills.map(({ label }) => label).join(", ")}`}>
+    <div ref={sectionRef} className="spatial-scroll" aria-label={`Key skills: ${visibleSkills.map(({ label }) => label).join(", ")}`}>
       <div className="spatial-scroll__stage" aria-hidden="true">
         <div className="spatial-scroll__frame" />
-        {skills.map((skill, index) => (
+        {visibleSkills.map((skill, index) => (
           <span
             key={skill.label}
             ref={(element) => { itemRefs.current[index] = element; }}

@@ -10,6 +10,15 @@ export default function HeroSection() {
   const splineContainerRef = useRef<HTMLDivElement>(null);
   const [nameComplete, setNameComplete] = useState(false);
   const [statementComplete, setStatementComplete] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const query = window.matchMedia("(max-width: 767px), (pointer: coarse)");
+    const update = () => setIsMobile(query.matches);
+    update();
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
+  }, []);
 
   useEffect(() => {
     const container = splineContainerRef.current;
@@ -36,7 +45,7 @@ export default function HeroSection() {
 
   return (
     <section id="top" className="section-lightning relative flex min-h-screen items-center justify-center overflow-hidden bg-hero-bg">
-      <div ref={splineContainerRef} className="absolute inset-0">
+      <div ref={splineContainerRef} className="spline-interaction-layer absolute inset-0">
         <SplineBackground />
       </div>
       <div className="pointer-events-none absolute inset-0 z-1 bg-black/30" />
@@ -62,8 +71,8 @@ export default function HeroSection() {
           </div>
         </div>
         <TextEffect
-          delay={0.15}
-          stagger={0.045}
+          delay={isMobile ? 0.08 : 0.15}
+          stagger={isMobile ? 0.03 : 0.045}
           trigger={nameComplete}
           onComplete={() => setStatementComplete(true)}
           className="mb-3 text-[clamp(1.125rem,2.5vw,1.875rem)] font-light text-foreground/80 md:mb-6"
@@ -71,8 +80,8 @@ export default function HeroSection() {
           I turn complex systems into clear, actionable solutions.
         </TextEffect>
         <TextEffect
-          delay={0.2}
-          stagger={0.026}
+          delay={isMobile ? 0.12 : 0.2}
+          stagger={isMobile ? 0.018 : 0.026}
           trigger={statementComplete}
           className="mb-4 max-w-3xl text-[clamp(0.875rem,1.5vw,1.25rem)] font-light leading-relaxed text-muted-foreground md:mb-8"
         >

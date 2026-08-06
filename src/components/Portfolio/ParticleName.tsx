@@ -31,10 +31,12 @@ export default function ParticleName({ onComplete }: { onComplete?: () => void }
     let hasCompleted = false;
     let resizeTimer: ReturnType<typeof setTimeout> | undefined;
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const isMobile = window.matchMedia("(max-width: 767px), (pointer: coarse)").matches;
+    let isVisible = true;
 
     const createParticles = () => {
       const rect = canvas.getBoundingClientRect();
-      const ratio = Math.min(window.devicePixelRatio || 1, 2);
+      const ratio = isMobile ? 1 : Math.min(window.devicePixelRatio || 1, 2);
       const width = Math.max(300, rect.width);
       const height = Math.max(92, rect.height);
 
@@ -79,7 +81,7 @@ export default function ParticleName({ onComplete }: { onComplete?: () => void }
 
       const pixels = textContext.getImageData(0, 0, textCanvas.width, textCanvas.height).data;
       const nextParticles: Particle[] = [];
-      const step = width < 500 ? 4 : 3;
+      const step = isMobile ? 5 : width < 500 ? 4 : 3;
       assemblyCompleteAt = 0;
 
       for (let y = 0; y < height; y += step) {
@@ -93,10 +95,9 @@ export default function ParticleName({ onComplete }: { onComplete?: () => void }
           const letterProgress = letter
             ? Math.max(0, Math.min(1, (x - letter.start) / Math.max(1, letter.end - letter.start)))
             : 0;
-          const releaseAt =
-            (letter?.order ?? 0) * 340 +
-            letterProgress * 480 +
-            Math.random() * 75;
+          const releaseAt = isMobile
+            ? (letter?.order ?? 0) * 190 + letterProgress * 280 + Math.random() * 45
+            : (letter?.order ?? 0) * 340 + letterProgress * 480 + Math.random() * 75;
           assemblyCompleteAt = Math.max(assemblyCompleteAt, releaseAt);
           nextParticles.push({
             x: width / 2 + Math.cos(angle) * distance,
@@ -117,7 +118,7 @@ export default function ParticleName({ onComplete }: { onComplete?: () => void }
     };
 
     const draw = (time = 0) => {
-      const ratio = Math.min(window.devicePixelRatio || 1, 2);
+      const ratio = isMobile ? 1 : Math.min(window.devicePixelRatio || 1, 2);
       const width = canvas.width / ratio;
       const height = canvas.height / ratio;
       const elapsed = time - assemblyStart;
@@ -143,11 +144,11 @@ export default function ParticleName({ onComplete }: { onComplete?: () => void }
       }
 
       context.globalAlpha = 1;
-      if (!hasCompleted && (reduceMotion || elapsed >= assemblyCompleteAt + 2200)) {
+      if (!hasCompleted && (reduceMotion || elapsed >= assemblyCompleteAt + (isMobile ? 1200 : 2200))) {
         hasCompleted = true;
         onComplete?.();
       }
-      if (!reduceMotion) animationFrame = requestAnimationFrame(draw);
+      if (!reduceMotion && isVisible) animationFrame = requestAnimationFrame(draw);
     };
 
     const rebuild = () => {
@@ -164,10 +165,22 @@ export default function ParticleName({ onComplete }: { onComplete?: () => void }
     document.fonts.ready.then(rebuild);
     observer.observe(canvas);
 
+    const visibilityObserver = new IntersectionObserver(([entry]) => {
+      isVisible = entry.isIntersecting;
+      if (!isVisible) {
+        cancelAnimationFrame(animationFrame);
+        animationFrame = 0;
+      } else if (!reduceMotion && animationFrame === 0) {
+        animationFrame = requestAnimationFrame(draw);
+      }
+    });
+    visibilityObserver.observe(canvas);
+
     return () => {
       clearTimeout(resizeTimer);
       cancelAnimationFrame(animationFrame);
       observer.disconnect();
+      visibilityObserver.disconnect();
     };
   }, []);
 

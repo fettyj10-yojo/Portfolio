@@ -558,6 +558,76 @@
   white-space: nowrap;
 }
 
+.spline-interaction-layer {
+  pointer-events: none;
+  touch-action: pan-y;
+}
+
+@media (min-width: 768px) and (hover: hover) and (pointer: fine) {
+  .spline-interaction-layer {
+    pointer-events: auto;
+  }
+}
+
+@media (max-width: 767px), (hover: none), (pointer: coarse) {
+  :is(.cyber-button, button) {
+    opacity: 0.85;
+  }
+
+  :is(.cyber-button, button):hover {
+    opacity: 0.85;
+  }
+
+  :is(.cyber-button, button):active {
+    opacity: 1;
+  }
+
+  :is(.cyber-button, button)::before,
+  :is(.cyber-button, button)::after {
+    animation: none;
+  }
+
+  .section-lightning::before,
+  .section-lightning::after {
+    height: 28px;
+    filter: blur(0.75px) drop-shadow(0 0 7px hsl(130 78% 17% / 0.28));
+    opacity: 0.34;
+    animation-duration: 10s;
+  }
+
+  .section-lightning::before {
+    top: -14px;
+  }
+
+  .section-lightning::after {
+    bottom: -14px;
+  }
+
+  .spatial-scroll {
+    height: 170svh;
+    margin-block: 1rem 2rem;
+  }
+
+  .spatial-scroll__stage {
+    perspective: 700px;
+  }
+
+  .spatial-scroll__frame {
+    inset: 10% 3%;
+    background-size: 16vw 16vw;
+  }
+
+  .spatial-scroll__item {
+    font-size: clamp(0.55rem, 2.4vw, 0.78rem);
+    letter-spacing: 0.1em;
+  }
+
+  .spatial-scroll__item--featured {
+    width: 90vw;
+    font-size: clamp(2rem, 11vw, 3.75rem);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .spatial-scroll {
     height: 100svh;

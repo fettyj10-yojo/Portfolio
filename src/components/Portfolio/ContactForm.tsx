@@ -48,7 +48,7 @@ export default function ContactForm() {
         <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
       </div>
       <div className="mt-6 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
-        <button type="submit" disabled={status.type === "sending"} className="inline-flex min-w-36 items-center justify-center rounded-sm bg-primary px-7 py-3.5 text-sm font-bold text-primary-foreground transition hover:brightness-110 active:scale-[0.97] disabled:cursor-wait disabled:opacity-60">
+        <button type="submit" disabled={status.type === "sending"} className="cyber-button inline-flex min-w-36 items-center justify-center rounded-sm bg-primary px-7 py-3.5 text-sm font-bold text-primary-foreground transition hover:brightness-110 active:scale-[0.97] disabled:cursor-wait disabled:opacity-60">
           {status.type === "sending" ? "Sending…" : "Send message"}
         </button>
         <p role="status" aria-live="polite" className={`text-sm ${status.type === "success" ? "text-primary" : status.type === "error" ? "text-red-400" : "text-muted-foreground"}`}>

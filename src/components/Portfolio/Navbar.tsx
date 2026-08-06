@@ -33,7 +33,7 @@ export default function Navbar() {
           <Link
             key={link}
             href={`#${link.toLowerCase()}`}
-            className="text-xs uppercase tracking-[0.16em] text-muted-foreground transition-colors hover:text-foreground"
+            className="cyber-nav-link text-xs uppercase tracking-[0.16em] text-muted-foreground"
           >
             {link}
           </Link>
@@ -42,7 +42,7 @@ export default function Navbar() {
       <Button
         variant="navCta"
         size="lg"
-        className="hidden rounded-lg px-6 text-xs uppercase tracking-widest md:inline-flex"
+        className="cyber-button hidden rounded-lg px-6 text-xs uppercase tracking-widest md:inline-flex"
         onClick={() => { window.location.href = "/Jacob-Fetty-Resume.pdf"; }}
       >
         View résumé

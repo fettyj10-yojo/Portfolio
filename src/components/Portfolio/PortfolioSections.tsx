@@ -13,7 +13,7 @@ const tools = ["React.js", "JavaScript", "HTML5 / CSS3", "SQL / MySQL", "Git / G
 export default function PortfolioSections() {
   return (
     <div className="bg-background">
-      <section id="expertise" className="mx-auto max-w-7xl px-6 py-28 md:px-10 lg:px-16">
+      <section id="expertise" className="section-lightning mx-auto max-w-7xl px-6 py-28 md:px-10 lg:px-16">
         <p className="section-kicker">Core expertise</p>
         <h2 className="section-heading">Built for problems that cross disciplines.</h2>
         <div className="mt-14 grid gap-px overflow-hidden rounded-lg border border-border bg-border md:grid-cols-3">
@@ -27,7 +27,7 @@ export default function PortfolioSections() {
         </div>
       </section>
 
-      <section id="experience" className="border-y border-border bg-secondary/30">
+      <section id="experience" className="section-lightning border-y border-border bg-secondary/30">
         <div className="mx-auto grid max-w-7xl gap-14 px-6 pt-28 md:px-10 lg:grid-cols-[0.8fr_1.2fr] lg:px-16">
           <div>
             <p className="section-kicker">Selected impact</p>
@@ -36,7 +36,7 @@ export default function PortfolioSections() {
             <a
               href="/Jacob-Fetty-Resume.pdf"
               download="Jacob-Fetty-Resume.pdf"
-              className="mt-8 inline-flex items-center gap-3 rounded-sm border border-primary/50 bg-primary/10 px-5 py-3 text-sm font-semibold text-primary transition-all hover:border-primary hover:bg-primary hover:text-primary-foreground active:scale-[0.97]"
+              className="cyber-button mt-8 inline-flex items-center gap-3 rounded-sm border border-primary/50 bg-primary/10 px-5 py-3 text-sm font-semibold text-primary transition-all hover:border-primary hover:bg-primary hover:text-primary-foreground active:scale-[0.97]"
             >
               Download résumé
               <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4 fill-none stroke-current" strokeWidth="1.8">
@@ -54,7 +54,7 @@ export default function PortfolioSections() {
         <SpatialSkillsScroll />
       </section>
 
-      <section id="toolkit" className="mx-auto max-w-7xl px-6 py-28 md:px-10 lg:px-16">
+      <section id="toolkit" className="section-lightning mx-auto max-w-7xl px-6 py-28 md:px-10 lg:px-16">
         <p className="section-kicker">Technical toolkit</p>
         <h2 className="section-heading">From CAD to code to intelligence.</h2>
         <div className="mt-12 flex flex-wrap gap-3">
@@ -84,7 +84,7 @@ export default function PortfolioSections() {
         </div>
       </section>
 
-      <section id="about" className="border-y border-border">
+      <section id="about" className="section-lightning border-y border-border">
         <div className="mx-auto grid max-w-7xl gap-10 px-6 py-28 md:px-10 lg:grid-cols-2 lg:px-16">
           <div>
             <p className="section-kicker">Education & trust</p>
@@ -110,7 +110,7 @@ export default function PortfolioSections() {
         </div>
       </section>
 
-      <section id="contact" className="relative overflow-hidden bg-hero-bg">
+      <section id="contact" className="section-lightning relative overflow-hidden bg-hero-bg">
         <div className="pointer-events-none absolute inset-0 opacity-55" aria-hidden="true">
           <SplineBackground />
         </div>
@@ -119,7 +119,7 @@ export default function PortfolioSections() {
           <p className="section-kicker">Next mission</p>
           <h2 className="mx-auto mt-4 max-w-4xl text-[clamp(2.25rem,5vw,4.5rem)] font-semibold leading-tight tracking-[-0.04em]">Let&apos;s build something that matters.</h2>
           <ContactForm />
-          <a href="/Jacob-Fetty-Resume.pdf" download="Jacob-Fetty-Resume.pdf" className="mt-10 inline-flex rounded-sm bg-primary px-8 py-4 text-sm font-bold text-primary-foreground transition-all hover:brightness-110 active:scale-[0.97]">Download sanitized résumé</a>
+          <a href="/Jacob-Fetty-Resume.pdf" download="Jacob-Fetty-Resume.pdf" className="cyber-button mt-10 inline-flex rounded-sm bg-primary px-8 py-4 text-sm font-bold text-primary-foreground transition-all hover:brightness-110 active:scale-[0.97]">Download sanitized résumé</a>
           <p className="mt-8 text-sm text-muted-foreground">Open to software, data, engineering, and operations opportunities.</p>
         </div>
       </section>

@@ -111,11 +111,11 @@ export default function PortfolioSections() {
       </section>
 
       <section id="contact" className="section-lightning relative overflow-hidden bg-hero-bg">
-        <div className="pointer-events-none absolute inset-0 opacity-55" aria-hidden="true">
+        <div className="spline-interaction-layer absolute inset-0 opacity-55" aria-hidden="true">
           <SplineBackground />
         </div>
         <div className="pointer-events-none absolute inset-0 bg-black/55" />
-        <div className="relative z-10 mx-auto max-w-7xl px-6 py-28 text-center md:px-10 lg:px-16">
+        <div className="pointer-events-none relative z-10 mx-auto max-w-7xl px-6 py-28 text-center md:px-10 lg:px-16">
           <p className="section-kicker">Next mission</p>
           <h2 className="mx-auto mt-4 max-w-4xl text-[clamp(2.25rem,5vw,4.5rem)] font-semibold leading-tight tracking-[-0.04em]">Let&apos;s build something that matters.</h2>
           <ContactForm />

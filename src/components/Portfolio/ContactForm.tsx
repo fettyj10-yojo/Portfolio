@@ -32,7 +32,7 @@ export default function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="mx-auto mt-12 max-w-3xl rounded-2xl border border-primary/15 bg-hero-bg p-6 text-left shadow-[0_24px_80px_rgba(0,0,0,0.35)] transition-[transform,border-color,box-shadow] duration-500 ease-out hover:-translate-y-1 hover:border-primary/55 hover:shadow-[0_28px_90px_rgba(5,230,1,0.16),0_0_28px_rgba(5,230,1,0.08)] focus-within:-translate-y-1 focus-within:border-primary/55 focus-within:shadow-[0_28px_90px_rgba(5,230,1,0.16),0_0_28px_rgba(5,230,1,0.08)] sm:p-8">
+    <form onSubmit={handleSubmit} className="pointer-events-auto mx-auto mt-12 max-w-3xl rounded-2xl border border-primary/15 bg-hero-bg p-6 text-left shadow-[0_24px_80px_rgba(0,0,0,0.35)] transition-[transform,border-color,box-shadow] duration-500 ease-out hover:-translate-y-1 hover:border-primary/55 hover:shadow-[0_28px_90px_rgba(5,230,1,0.16),0_0_28px_rgba(5,230,1,0.08)] focus-within:-translate-y-1 focus-within:border-primary/55 focus-within:shadow-[0_28px_90px_rgba(5,230,1,0.16),0_0_28px_rgba(5,230,1,0.08)] sm:p-8">
       <div className="grid gap-5 sm:grid-cols-2">
         <Field label="First name" name="firstName" autoComplete="given-name" required />
         <Field label="Last name" name="lastName" autoComplete="family-name" required />

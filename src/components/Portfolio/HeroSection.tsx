@@ -1,13 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import ParticleName from "./ParticleName";
 import SplineBackground from "./SplineBackground";
 import TextEffect from "./TextEffect";
 
 export default function HeroSection() {
-  const splineContainerRef = useRef<HTMLDivElement>(null);
   const [nameComplete, setNameComplete] = useState(false);
   const [statementComplete, setStatementComplete] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -20,22 +19,9 @@ export default function HeroSection() {
     return () => query.removeEventListener("change", update);
   }, []);
 
-  useEffect(() => {
-    const container = splineContainerRef.current;
-    if (!container) return;
-
-    const preserveNativeScroll = (event: WheelEvent) => {
-      if (event.ctrlKey) return;
-      event.stopPropagation();
-    };
-
-    container.addEventListener("wheel", preserveNativeScroll, { capture: true, passive: true });
-    return () => container.removeEventListener("wheel", preserveNativeScroll, { capture: true });
-  }, []);
-
   return (
     <section id="top" className="section-lightning relative flex h-svh min-h-[40rem] items-center justify-center overflow-hidden bg-hero-bg">
-      <div ref={splineContainerRef} className="spline-interaction-layer absolute inset-0">
+      <div className="spline-interaction-layer absolute inset-0">
         <SplineBackground />
       </div>
       <div className="pointer-events-none absolute inset-0 z-1 bg-black/30" />

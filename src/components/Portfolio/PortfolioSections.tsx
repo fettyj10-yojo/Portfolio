@@ -119,8 +119,7 @@ export default function PortfolioSections() {
           <p className="section-kicker">Next mission</p>
           <h2 className="mx-auto mt-4 max-w-4xl text-[clamp(2.25rem,5vw,4.5rem)] font-semibold leading-tight tracking-[-0.04em]">Let&apos;s build something that matters.</h2>
           <ContactForm />
-          <a href="/Jacob-Fetty-Resume.pdf" download="Jacob-Fetty-Resume.pdf" className="cyber-button mt-10 inline-flex rounded-sm bg-primary px-8 py-4 text-sm font-bold text-primary-foreground transition-all hover:brightness-110 active:scale-[0.97]">Download sanitized résumé</a>
-          <p className="mt-8 text-sm text-muted-foreground">Open to software, data, engineering, and operations opportunities.</p>
+          <p className="mt-10 text-sm text-muted-foreground">Open to software, data, engineering, and operations opportunities.</p>
         </div>
       </section>
     </div>

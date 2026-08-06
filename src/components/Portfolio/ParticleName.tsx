@@ -190,7 +190,7 @@ export default function ParticleName({ onComplete }: { onComplete?: () => void }
       <canvas
         ref={canvasRef}
         aria-hidden="true"
-        className="block h-[clamp(6rem,12vw,9.5rem)] w-full drop-shadow-[0_0_18px_hsl(var(--primary)/0.2)]"
+        className="block h-[clamp(4.75rem,10vw,7.5rem)] w-full drop-shadow-[0_0_18px_hsl(var(--primary)/0.2)]"
       />
     </span>
   );

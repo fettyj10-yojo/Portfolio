@@ -24,39 +24,29 @@ export default function HeroSection() {
     const container = splineContainerRef.current;
     if (!container) return;
 
-    const forwardWheelToPage = (event: WheelEvent) => {
+    const preserveNativeScroll = (event: WheelEvent) => {
       if (event.ctrlKey) return;
-
-      event.preventDefault();
       event.stopPropagation();
-
-      const multiplier = event.deltaMode === WheelEvent.DOM_DELTA_LINE
-        ? 16
-        : event.deltaMode === WheelEvent.DOM_DELTA_PAGE
-          ? window.innerHeight
-          : 1;
-
-      window.scrollBy({ top: event.deltaY * multiplier, behavior: "auto" });
     };
 
-    container.addEventListener("wheel", forwardWheelToPage, { capture: true, passive: false });
-    return () => container.removeEventListener("wheel", forwardWheelToPage, { capture: true });
+    container.addEventListener("wheel", preserveNativeScroll, { capture: true, passive: true });
+    return () => container.removeEventListener("wheel", preserveNativeScroll, { capture: true });
   }, []);
 
   return (
-    <section id="top" className="section-lightning relative flex min-h-screen items-center justify-center overflow-hidden bg-hero-bg">
+    <section id="top" className="section-lightning relative flex h-svh min-h-[40rem] items-center justify-center overflow-hidden bg-hero-bg">
       <div ref={splineContainerRef} className="spline-interaction-layer absolute inset-0">
         <SplineBackground />
       </div>
       <div className="pointer-events-none absolute inset-0 z-1 bg-black/30" />
-      <div className="pointer-events-none relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center px-6 py-28 text-center md:px-10">
-        <p className="mb-4 opacity-0 animate-fade-up text-xs font-medium uppercase tracking-[0.28em] text-primary [animation-delay:0.1s]">
+      <div className="pointer-events-none relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center px-6 pb-7 pt-24 text-center md:px-10 md:pb-8 md:pt-24">
+        <p className="mb-2 opacity-0 animate-fade-up text-xs font-medium uppercase tracking-[0.28em] text-primary [animation-delay:0.1s] md:mb-3">
           Industrial engineering · intelligence · software
         </p>
-        <h1 className="mb-3 w-full max-w-4xl opacity-0 animate-fade-up [animation-delay:0.2s] md:mb-5">
+        <h1 className="mb-1 w-full max-w-4xl opacity-0 animate-fade-up [animation-delay:0.2s] md:mb-2">
           <ParticleName onComplete={() => setNameComplete(true)} />
         </h1>
-        <div className="hero-headshot relative mb-6 size-[clamp(14rem,25vw,21rem)] shrink-0 opacity-0 animate-fade-in [animation-delay:0.25s] md:mb-8">
+        <div className="hero-headshot relative mb-3 size-[clamp(11rem,24svh,18rem)] shrink-0 opacity-0 animate-fade-in [animation-delay:0.25s] md:mb-4">
           <div className="absolute inset-[3%] rounded-full bg-primary/15 blur-3xl" />
           <div className="absolute inset-[7%] overflow-hidden rounded-full">
             <Image
@@ -75,7 +65,7 @@ export default function HeroSection() {
           stagger={isMobile ? 0.03 : 0.045}
           trigger={nameComplete}
           onComplete={() => setStatementComplete(true)}
-          className="mb-3 text-[clamp(1.125rem,2.5vw,1.875rem)] font-light text-foreground/80 md:mb-6"
+          className="mb-2 text-[clamp(1.05rem,2.25vw,1.7rem)] font-light text-foreground/80 md:mb-3"
         >
           I turn complex systems into clear, actionable solutions.
         </TextEffect>
@@ -83,7 +73,7 @@ export default function HeroSection() {
           delay={isMobile ? 0.12 : 0.2}
           stagger={isMobile ? 0.018 : 0.026}
           trigger={statementComplete}
-          className="mb-4 max-w-3xl text-[clamp(0.875rem,1.5vw,1.25rem)] font-light leading-relaxed text-muted-foreground md:mb-8"
+          className="mb-3 max-w-3xl text-[clamp(0.825rem,1.35vw,1.1rem)] font-light leading-relaxed text-muted-foreground md:mb-4"
         >
           Industrial engineer and intelligence analyst applying React, SQL, data analysis, and AI-assisted workflows to high-stakes operational problems.
         </TextEffect>
@@ -95,7 +85,7 @@ export default function HeroSection() {
             View experience
           </a>
         </div>
-        <p className="mt-4 opacity-0 animate-fade-up text-xs font-light text-muted-foreground/60 [animation-delay:0.85s] md:mt-6">
+        <p className="mt-3 opacity-0 animate-fade-up text-xs font-light text-muted-foreground/60 [animation-delay:0.85s] md:mt-4">
           Active TS/SCI clearance · Open to software and data opportunities
         </p>
       </div>

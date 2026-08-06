@@ -27,6 +27,7 @@ export default function ParticleName({ onComplete }: { onComplete?: () => void }
     let particles: Particle[] = [];
     let animationFrame = 0;
     let assemblyStart = performance.now();
+    let assemblyCompleteAt = 0;
     let hasCompleted = false;
     let resizeTimer: ReturnType<typeof setTimeout> | undefined;
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -79,6 +80,7 @@ export default function ParticleName({ onComplete }: { onComplete?: () => void }
       const pixels = textContext.getImageData(0, 0, textCanvas.width, textCanvas.height).data;
       const nextParticles: Particle[] = [];
       const step = width < 500 ? 4 : 3;
+      assemblyCompleteAt = 0;
 
       for (let y = 0; y < height; y += step) {
         for (let x = 0; x < width; x += step) {
@@ -88,6 +90,14 @@ export default function ParticleName({ onComplete }: { onComplete?: () => void }
           const angle = Math.random() * Math.PI * 2;
           const distance = width * (0.35 + Math.random() * 0.45);
           const letter = letterRanges.find((range) => x >= range.start && x <= range.end);
+          const letterProgress = letter
+            ? Math.max(0, Math.min(1, (x - letter.start) / Math.max(1, letter.end - letter.start)))
+            : 0;
+          const releaseAt =
+            (letter?.order ?? 0) * 340 +
+            letterProgress * 480 +
+            Math.random() * 75;
+          assemblyCompleteAt = Math.max(assemblyCompleteAt, releaseAt);
           nextParticles.push({
             x: width / 2 + Math.cos(angle) * distance,
             y: height / 2 + Math.sin(angle) * distance * 0.45,
@@ -97,7 +107,7 @@ export default function ParticleName({ onComplete }: { onComplete?: () => void }
             vy: 0,
             color: `rgb(${pixels[index]}, ${pixels[index + 1]}, ${pixels[index + 2]})`,
             phase: Math.random() * Math.PI * 2,
-            releaseAt: (letter?.order ?? 0) * 280,
+            releaseAt,
           });
         }
       }
@@ -133,7 +143,7 @@ export default function ParticleName({ onComplete }: { onComplete?: () => void }
       }
 
       context.globalAlpha = 1;
-      if (!hasCompleted && (reduceMotion || elapsed >= 4800)) {
+      if (!hasCompleted && (reduceMotion || elapsed >= assemblyCompleteAt + 2200)) {
         hasCompleted = true;
         onComplete?.();
       }

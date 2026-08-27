@@ -57,10 +57,11 @@ export default function Navbar() {
       <Button
         variant="navCta"
         size="lg"
-        className="cyber-button hidden rounded-lg px-6 text-xs uppercase tracking-widest md:inline-flex"
+        className="cyber-button rounded-lg px-3 text-[0.625rem] uppercase tracking-widest sm:px-4 md:px-6 md:text-xs"
         onClick={() => { window.location.href = "/Jacob-Fetty-Resume.pdf"; }}
       >
-        View résumé
+        <span className="md:hidden">Résumé</span>
+        <span className="hidden md:inline">View résumé</span>
       </Button>
       <nav
         id="mobile-navigation"

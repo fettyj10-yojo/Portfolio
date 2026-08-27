@@ -1,11 +1,11 @@
-import SpatialSkillsScroll from "./SpatialSkillsScroll";
 import ContactForm from "./ContactForm";
-import SplineBackground from "./SplineBackground";
+import PointerBackground from "./PointerBackground";
+import ProjectsCarousel from "./ProjectsCarousel";
 
 const disciplines = [
-  ["01", "Software & Data", "React, JavaScript, SQL/MySQL, Git, GitHub, data analytics, and AI-assisted workflow development."],
-  ["02", "Engineering Systems", "Industrial engineering, AutoCAD, SOLIDWORKS, MATLAB, process improvement, and technical documentation."],
-  ["03", "Mission Intelligence", "Intelligence fusion, predictive and pattern analysis, threat assessment, and operational planning."],
+  ["Software & Data", "React, JavaScript, SQL/MySQL, Git, GitHub, data analytics, and AI-assisted workflow development."],
+  ["Engineering Systems", "Industrial engineering, AutoCAD, SOLIDWORKS, MATLAB, process improvement, and technical documentation."],
+  ["Mission Intelligence", "Intelligence fusion, predictive and pattern analysis, threat assessment, and operational planning."],
 ];
 
 const tools = ["React.js", "JavaScript", "HTML5 / CSS3", "SQL / MySQL", "Git / GitHub", "AutoCAD", "SOLIDWORKS", "MATLAB", "Data Analytics", "AI Prompt Engineering"];
@@ -13,36 +13,25 @@ const tools = ["React.js", "JavaScript", "HTML5 / CSS3", "SQL / MySQL", "Git / G
 export default function PortfolioSections() {
   return (
     <div className="bg-background">
-      <section id="expertise" className="section-lightning mx-auto max-w-7xl px-6 py-28 md:px-10 lg:px-16">
+      <section data-scroll-reveal id="expertise" className="section-lightning mx-auto max-w-7xl px-6 py-28 md:px-10 lg:px-16">
         <p className="section-kicker">Core expertise</p>
         <h2 className="section-heading">Built for problems that cross disciplines.</h2>
         <div className="mt-14 grid gap-px overflow-hidden rounded-lg border border-border bg-border md:grid-cols-3">
-          {disciplines.map(([number, title, copy]) => (
-            <article key={number} className="bg-background p-8 lg:p-10">
-              <span className="text-xs text-primary">{number}</span>
-              <h3 className="mt-12 text-xl font-semibold">{title}</h3>
+          {disciplines.map(([title, copy]) => (
+            <article key={title} className="bg-background p-8 lg:p-10">
+              <h3 className="text-xl font-semibold">{title}</h3>
               <p className="mt-4 font-light leading-7 text-muted-foreground">{copy}</p>
             </article>
           ))}
         </div>
       </section>
 
-      <section id="experience" className="section-lightning border-y border-border bg-secondary/30">
+      <section data-scroll-reveal id="experience" className="section-lightning border-y border-border bg-secondary/30">
         <div className="mx-auto grid max-w-7xl gap-14 px-6 pt-28 md:px-10 lg:grid-cols-[0.8fr_1.2fr] lg:px-16">
           <div>
             <p className="section-kicker">Selected impact</p>
-            <h2 className="section-heading">Leadership that moved missions forward.</h2>
+            <h2 className="section-heading">Leadership that moves missions forward.</h2>
             <p className="mt-6 max-w-xs text-sm font-light leading-6 text-muted-foreground">A record of converting complex information, competing priorities, and strict requirements into measurable outcomes.</p>
-            <a
-              href="/Jacob-Fetty-Resume.pdf"
-              download="Jacob-Fetty-Resume.pdf"
-              className="cyber-button mt-8 inline-flex items-center gap-3 rounded-sm border border-primary/50 bg-primary/10 px-5 py-3 text-sm font-semibold text-primary transition-all hover:border-primary hover:bg-primary hover:text-primary-foreground active:scale-[0.97]"
-            >
-              Download résumé
-              <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4 fill-none stroke-current" strokeWidth="1.8">
-                <path d="M12 3v12m0 0 4-4m-4 4-4-4M5 20h14" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </a>
           </div>
           <div className="space-y-12">
             <Experience role="Military Intelligence Analyst" org="United States Army" text="Collected, analyzed, sanitized, and disseminated 1,200+ intelligence products supporting joint operations and contributing to the capture or neutralization of 375+ high-value targets." />
@@ -51,10 +40,9 @@ export default function PortfolioSections() {
             <Experience role="Recruiter / Operations Specialist" org="United States Army" text="Built strategic community partnerships and used operational metrics and trend analysis to exceed an individual recruiting mission by 20% in a historically challenging environment." />
           </div>
         </div>
-        <SpatialSkillsScroll />
       </section>
 
-      <section id="toolkit" className="section-lightning mx-auto max-w-7xl px-6 py-28 md:px-10 lg:px-16">
+      <section data-scroll-reveal id="toolkit" className="section-lightning mx-auto max-w-7xl px-6 py-28 md:px-10 lg:px-16">
         <p className="section-kicker">Technical toolkit</p>
         <h2 className="section-heading">From CAD to code to intelligence.</h2>
         <div className="mt-12 flex flex-wrap gap-3">
@@ -84,7 +72,7 @@ export default function PortfolioSections() {
         </div>
       </section>
 
-      <section id="about" className="section-lightning border-y border-border">
+      <section data-scroll-reveal id="about" className="section-lightning border-y border-border">
         <div className="mx-auto grid max-w-7xl gap-10 px-6 py-28 md:px-10 lg:grid-cols-2 lg:px-16">
           <div>
             <p className="section-kicker">Education & trust</p>
@@ -95,24 +83,15 @@ export default function PortfolioSections() {
             <p>Active TS/SCI security clearance and a record of handling sensitive information under strict security standards.</p>
             <p>CoITB certified in HTML/CSS and JavaScript.</p>
           </div>
-          <figure className="group relative mx-auto mt-6 w-full max-w-4xl overflow-hidden rounded-xl border border-primary/20 bg-hero-bg shadow-[0_24px_80px_rgba(0,0,0,0.35)] lg:col-span-2">
-            <div className="pointer-events-none absolute inset-0 z-1 bg-linear-to-tr from-background/45 via-transparent to-primary/10" />
-            <img
-              src="/portfolio-signal-green.svg"
-              alt="Signal Green emblem combining intelligence, engineering, and software development"
-              loading="lazy"
-              className="aspect-3/2 w-full object-cover opacity-80 transition duration-700 group-hover:scale-[1.025] group-hover:opacity-100"
-            />
-            <figcaption className="absolute bottom-4 left-4 z-2 rounded-full border border-white/10 bg-black/45 px-3 py-1.5 text-[0.625rem] uppercase tracking-[0.2em] text-foreground/70 backdrop-blur-md">
-              Intelligence · Engineering · Software
-            </figcaption>
-          </figure>
+          <div className="lg:col-span-2">
+            <ProjectsCarousel />
+          </div>
         </div>
       </section>
 
-      <section id="contact" className="section-lightning relative overflow-hidden bg-hero-bg">
-        <div className="spline-interaction-layer absolute inset-0 opacity-55" aria-hidden="true">
-          <SplineBackground />
+      <section data-scroll-reveal id="contact" className="section-lightning relative overflow-hidden bg-hero-bg">
+        <div className="pointer-background-layer absolute inset-0 opacity-55" aria-hidden="true">
+          <PointerBackground />
         </div>
         <div className="pointer-events-none absolute inset-0 bg-black/55" />
         <div className="pointer-events-none relative z-10 mx-auto max-w-7xl px-6 py-28 text-center md:px-10 lg:px-16">

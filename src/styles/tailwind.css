@@ -205,26 +205,6 @@
   to { background-position: -80% 50%; }
 }
 
-.hero-reveal-character {
-  filter: blur(6px);
-  transform: translateY(5px);
-  animation: hero-character-reveal 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  will-change: opacity, filter, transform;
-}
-
-@keyframes hero-character-reveal {
-  0% {
-    opacity: 0;
-    filter: blur(6px);
-    transform: translateY(5px);
-  }
-  100% {
-    opacity: 1;
-    filter: blur(0);
-    transform: translateY(0);
-  }
-}
-
 /* Signal Green energy field shared by the portfolio's interactive CTAs. */
 :is(.cyber-button, button) {
   --cyber-speed: 7s;
@@ -327,12 +307,6 @@
     animation: none;
   }
 
-  .hero-reveal-character {
-    opacity: 1;
-    filter: none;
-    transform: none;
-    animation: none;
-  }
 }
 
 .hero-headshot {
@@ -341,6 +315,31 @@
     drop-shadow(0 0 2.75rem hsl(var(--primary) / 0.16));
   -webkit-mask-image: radial-gradient(circle, #000 56%, rgb(0 0 0 / 0.96) 64%, transparent 76%);
   mask-image: radial-gradient(circle, #000 56%, rgb(0 0 0 / 0.96) 64%, transparent 76%);
+}
+
+/* Progressive content reveal begins at the first section below the hero. */
+[data-scroll-reveal][data-reveal-ready="true"] {
+  opacity: 0;
+  transform: translate3d(0, 2.5rem, 0);
+  will-change: opacity, transform;
+  transition:
+    opacity 850ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 850ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-scroll-reveal][data-revealed="true"] {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-scroll-reveal][data-reveal-ready="true"] {
+    opacity: 1;
+    transform: none;
+    will-change: auto;
+    transition: none;
+  }
 }
 
 .section-lightning {
@@ -489,7 +488,7 @@
 .spatial-scroll {
   position: relative;
   height: 250svh;
-  margin-block: 2rem 4rem;
+  margin: 0 0 4rem;
 }
 
 .spatial-scroll__stage {
@@ -518,6 +517,7 @@
 .spatial-scroll__item {
   position: absolute;
   z-index: 2;
+  pointer-events: none;
   color: hsl(var(--foreground) / 0.78);
   font-size: clamp(0.65rem, 1.2vw, 1rem);
   font-weight: 400;
@@ -542,6 +542,20 @@
   white-space: normal;
 }
 
+.spatial-scroll.spatial-scroll--hero {
+  height: 100svh;
+  min-height: 40rem;
+  margin: 0;
+  background: hsl(var(--hero-bg));
+}
+
+.spatial-scroll--hero .spatial-scroll__stage {
+  position: relative;
+  top: auto;
+  height: 100%;
+  min-height: 40rem;
+}
+
 .spatial-scroll__item--middle:not(.spatial-scroll__item--featured) {
   color: hsl(var(--foreground) / 0.78);
 }
@@ -558,15 +572,42 @@
   white-space: nowrap;
 }
 
-.spline-interaction-layer {
+.pointer-background-layer {
   pointer-events: none;
   touch-action: pan-y;
 }
 
 @media (min-width: 768px) and (hover: hover) and (pointer: fine) {
-  .spline-interaction-layer {
+  .pointer-background-layer {
     pointer-events: auto;
   }
+}
+
+.pointer-glow {
+  background: radial-gradient(
+    34rem circle at var(--pointer-x, 50%) var(--pointer-y, 35%),
+    hsl(var(--primary) / 0.18),
+    hsl(var(--primary) / 0.055) 34%,
+    transparent 68%
+  );
+}
+
+/* Static foreground depth keeps the interactive light visually behind the page. */
+.pointer-foreground {
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 8% 82%, hsl(var(--background) / 0.72) 0 7%, transparent 32%),
+    radial-gradient(ellipse at 92% 18%, hsl(var(--background) / 0.62) 0 6%, transparent 29%),
+    linear-gradient(
+      112deg,
+      transparent 0 18%,
+      hsl(var(--foreground) / 0.025) 18.1% 18.25%,
+      transparent 18.35% 72%,
+      hsl(var(--primary) / 0.035) 72.1% 72.25%,
+      transparent 72.35%
+    ),
+    radial-gradient(ellipse at center, transparent 38%, hsl(var(--hero-bg) / 0.36) 76%, hsl(var(--hero-bg) / 0.72) 100%);
+  box-shadow: inset 0 0 8rem hsl(var(--hero-bg) / 0.48);
 }
 
 @media (max-width: 767px), (hover: none), (pointer: coarse) {
@@ -605,7 +646,7 @@
 
   .spatial-scroll {
     height: 170svh;
-    margin-block: 1rem 2rem;
+    margin: 0 0 2rem;
   }
 
   .spatial-scroll__stage {

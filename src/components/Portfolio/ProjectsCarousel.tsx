@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 
 const projects = [
   {
@@ -54,7 +54,6 @@ const projects = [
 
 export default function ProjectsCarousel() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const touchStart = useRef<number | null>(null);
 
   const selectProject = (index: number) => {
     setActiveIndex((index + projects.length) % projects.length);
@@ -65,26 +64,14 @@ export default function ProjectsCarousel() {
     if (event.key === 'ArrowRight') selectProject(activeIndex + 1);
   };
 
-  const handleTouchEnd = (event: React.TouchEvent<HTMLDivElement>) => {
-    if (touchStart.current === null) return;
-    const distance = event.changedTouches[0].clientX - touchStart.current;
-    touchStart.current = null;
-    if (Math.abs(distance) < 50) return;
-    selectProject(activeIndex + (distance < 0 ? 1 : -1));
-  };
-
   return (
     <div
-      className='border-primary/20 bg-hero-bg relative mx-auto mt-10 w-full max-w-5xl overflow-hidden rounded-xl border shadow-[0_24px_80px_rgba(0,0,0,0.35)]'
+      className='border-primary/20 bg-hero-bg relative mx-auto mt-10 w-full max-w-5xl touch-pan-y overflow-hidden rounded-xl border shadow-[0_24px_80px_rgba(0,0,0,0.35)]'
       role='region'
       aria-roledescription='carousel'
       aria-label='Featured projects'
       tabIndex={0}
       onKeyDown={handleKeyDown}
-      onTouchStart={(event) => {
-        touchStart.current = event.touches[0].clientX;
-      }}
-      onTouchEnd={handleTouchEnd}
     >
       <div
         className='flex transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none'

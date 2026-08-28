@@ -18,9 +18,17 @@ export default function PointerBackground() {
 
     const handlePointerMove = (event: PointerEvent) => {
       if (!isVisible) return;
+      const rect = container.getBoundingClientRect();
+      if (
+        event.clientX < rect.left ||
+        event.clientX > rect.right ||
+        event.clientY < rect.top ||
+        event.clientY > rect.bottom
+      )
+        return;
+
       cancelAnimationFrame(frame);
       frame = requestAnimationFrame(() => {
-        const rect = container.getBoundingClientRect();
         container.style.setProperty(
           '--pointer-x',
           `${event.clientX - rect.left}px`,
@@ -38,14 +46,14 @@ export default function PointerBackground() {
     });
 
     observer.observe(container);
-    container.addEventListener('pointermove', handlePointerMove, {
+    window.addEventListener('pointermove', handlePointerMove, {
       passive: true,
     });
 
     return () => {
       cancelAnimationFrame(frame);
       observer.disconnect();
-      container.removeEventListener('pointermove', handlePointerMove);
+      window.removeEventListener('pointermove', handlePointerMove);
     };
   }, []);
 

@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-const links = ["Expertise", "Experience", "Toolkit", "About", "Contact"];
+const links = ["Experience", "Expertise", "Toolkit", "About", "Contact"];
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);

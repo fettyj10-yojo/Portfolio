@@ -57,7 +57,7 @@ export default function PortfolioSections() {
             </div>
             <p className="hidden max-w-sm text-right text-sm font-light leading-6 text-muted-foreground md:block">Industry-issued recognition of practical front-end development skills.</p>
           </div>
-          <div className="mx-auto mt-10 grid max-w-4xl gap-6 sm:grid-cols-2">
+          <div className="mx-auto mt-10 grid max-w-6xl gap-6 sm:grid-cols-2 lg:grid-cols-3">
             <BadgeCard
               src="/badges/javascript-professional-developer.png"
               alt="COITB Professional JavaScript Developer badge"
@@ -70,6 +70,12 @@ export default function PortfolioSections() {
               title="HTML & CSS"
               credentialHref="https://www.credly.com/badges/a2967bb3-007f-4c19-adf3-1b978d003fdb/public_url"
               imageClassName="-translate-y-[17.5px]"
+            />
+            <BadgeCard
+              src="/badges/react-js-framework-developer.png"
+              alt="COITB React.js Framework Developer badge"
+              title="React.js"
+              credentialHref="https://www.credly.com/badges/1dac121e-8acf-4b16-bb7c-8933b65b9829/public_url"
             />
           </div>
         </div>
